@@ -9,10 +9,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'pds_ration',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -228,7 +229,8 @@ app.post('/api/distributions', async (req, res) => {
 
 app.use(express.static(path.join(__dirname)));
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Backend server running at http://localhost:${port}`);
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Backend server running on port ${PORT}`);
 });
