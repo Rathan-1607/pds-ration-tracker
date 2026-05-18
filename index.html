@@ -1,0 +1,490 @@
+﻿<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDS Ration Distribution Tracking System</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+ </head>
+ <body class="h-full"><!-- LOGIN PAGE -->
+  <div id="page-login" class="h-full flex items-center justify-center u-style-1">
+   <div class="w-full max-w-md mx-4 fade-in">
+    <div class="u-style-2 rounded-2xl shadow-xl overflow-hidden">
+     <div class="u-style-3 p-8 text-center text-white">
+      <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4"><i data-lucide="wheat" class="u-style-4"></i>
+      </div>
+      <h1 id="login-title" class="text-2xl font-bold u-style-5">PDS Ration Distribution</h1>
+      <p class="text-sm mt-2 opacity-80" id="login-district">District Administration Portal</p>
+     </div>
+     <form id="login-form" class="p-8 space-y-5">
+      <div><label for="login-user" class="block text-sm font-medium mb-1.5">Officer ID</label> <input type="text" id="login-user" class="input-field" placeholder="Enter your officer ID" value="admin">
+      </div>
+      <div><label for="login-pass" class="block text-sm font-medium mb-1.5">Access Code</label> <input type="text" id="login-pass" class="input-field" placeholder="Enter access code" value="admin">
+      </div><button type="submit" class="btn-primary w-full text-center py-3"> <span class="flex items-center justify-center gap-2"><i data-lucide="log-in" class="u-style-6"></i> Sign In</span> </button>
+      <p class="text-xs text-center opacity-50 mt-3">Government of India · Public Distribution System</p>
+     </form>
+    </div>
+   </div>
+  </div><!-- MAIN APP SHELL -->
+  <div id="app-shell" class="h-full flex u-style-7" style="display:none;"><!-- MOBILE OVERLAY -->
+   <div id="mobile-overlay" class="mobile-overlay"></div><!-- SIDEBAR -->
+   <aside id="sidebar" class="w-64 flex-shrink-0 h-full overflow-y-auto p-4 flex flex-col transition-all duration-300 u-style-8">
+    <div class="flex items-center gap-3 mb-8 px-1">
+     <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 u-style-9"><i data-lucide="wheat" class="u-style-10"></i>
+     </div>
+     <div>
+      <h2 id="sidebar-title" class="text-sm font-bold leading-tight">PDS Tracker</h2>
+      <p class="text-xs opacity-50" id="sidebar-district">District Portal</p>
+     </div>
+    </div>
+    <nav class="space-y-1 flex-1">
+     <div class="sidebar-link active" data-page="dashboard"><i data-lucide="layout-dashboard" class="u-style-11"></i> Dashboard
+     </div>
+     <div class="sidebar-link" data-page="cardholders"><i data-lucide="users" class="u-style-11"></i> Card Holders
+     </div>
+     <div class="sidebar-link" data-page="stock"><i data-lucide="package" class="u-style-11"></i> Stock Management
+     </div>
+     <div class="sidebar-link" data-page="distribution"><i data-lucide="truck" class="u-style-11"></i> Distribution
+     </div>
+     <div class="sidebar-link" data-page="reports"><i data-lucide="bar-chart-3" class="u-style-11"></i> Reports
+     </div>
+    </nav>
+    <div class="mt-4 p-3 rounded-lg u-style-12">
+     <p class="text-xs font-semibold u-style-13">⚡ System Status</p>
+     <p class="text-xs opacity-60 mt-1">All services running</p>
+    </div>
+   </aside><!-- MAIN AREA -->
+   <div class="flex-1 flex flex-col h-full overflow-hidden"><!-- TOP NAV -->
+    <header class="flex items-center justify-between px-4 md:px-6 py-3 flex-shrink-0 u-style-14">
+     <div class="flex items-center gap-3"><button id="mobile-menu-button" class="md:hidden p-1.5 rounded-lg hover:bg-gray-100"> <i data-lucide="menu" class="u-style-15"></i> </button>
+      <h1 id="page-title" class="text-lg font-bold">Dashboard</h1>
+     </div>
+     <div class="flex items-center gap-3"><button class="relative p-2 rounded-lg hover:bg-gray-100 transition"> <i data-lucide="bell" class="u-style-6"></i> <span class="absolute top-1 right-1 w-2 h-2 rounded-full u-style-16"></span> </button>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold u-style-9">
+       AD
+      </div>
+     </div>
+    </header><!-- CONTENT AREA -->
+    <main id="content-area" class="flex-1 overflow-y-auto p-4 md:p-6"><!-- DASHBOARD PAGE -->
+     <div id="page-dashboard" class="page fade-in u-style-7"><!-- Stat cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+       <div class="card-stat u-style-2">
+        <div class="flex items-center justify-between mb-3">
+         <div class="w-10 h-10 rounded-lg flex items-center justify-center u-style-17">
+          <i data-lucide="users" class="u-style-18"></i>
+         </div><span class="badge badge-green">+12%</span>
+        </div>
+        <p class="text-2xl font-bold">14,582</p>
+        <p class="text-xs opacity-50 mt-1">Total Beneficiaries</p>
+       </div>
+       <div class="card-stat u-style-2">
+        <div class="flex items-center justify-between mb-3">
+         <div class="w-10 h-10 rounded-lg flex items-center justify-center u-style-19">
+          <i data-lucide="package" class="u-style-20"></i>
+         </div><span class="badge badge-blue">Healthy</span>
+        </div>
+        <p class="text-2xl font-bold">8,450 kg</p>
+        <p class="text-xs opacity-50 mt-1">Available Stock</p>
+       </div>
+       <div class="card-stat u-style-2">
+        <div class="flex items-center justify-between mb-3">
+         <div class="w-10 h-10 rounded-lg flex items-center justify-center u-style-21">
+          <i data-lucide="truck" class="u-style-22"></i>
+         </div><span class="badge badge-yellow">This Month</span>
+        </div>
+        <p class="text-2xl font-bold">3,215</p>
+        <p class="text-xs opacity-50 mt-1">Monthly Distributions</p>
+       </div>
+       <div class="card-stat u-style-2">
+        <div class="flex items-center justify-between mb-3">
+         <div class="w-10 h-10 rounded-lg flex items-center justify-center u-style-23">
+          <i data-lucide="alert-triangle" class="u-style-24"></i>
+         </div><span class="badge badge-red">3 Items</span>
+        </div>
+        <p class="text-2xl font-bold">Low Stock</p>
+        <p class="text-xs opacity-50 mt-1">Alerts Active</p>
+       </div>
+      </div><!-- Charts + Alerts row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6"><!-- Bar chart -->
+       <div class="lg:col-span-2 rounded-xl p-5 u-style-2">
+        <div class="flex items-center justify-between mb-4">
+         <h3 class="text-sm font-bold">Monthly Distribution Overview</h3><span class="text-xs opacity-50">Last 6 months</span>
+        </div>
+        <div class="flex items-end gap-3 h-40" id="bar-chart">
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-25"></div><span class="text-xs opacity-50">Jul</span>
+         </div>
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-26"></div><span class="text-xs opacity-50">Aug</span>
+         </div>
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-27"></div><span class="text-xs opacity-50">Sep</span>
+         </div>
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-28"></div><span class="text-xs opacity-50">Oct</span>
+         </div>
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-29"></div><span class="text-xs opacity-50">Nov</span>
+         </div>
+         <div class="flex-1 flex flex-col items-center gap-1">
+          <div class="w-full chart-bar u-style-30"></div><span class="text-xs opacity-50">Dec</span>
+         </div>
+        </div>
+       </div><!-- Low stock alerts -->
+       <div class="rounded-xl p-5 u-style-2">
+        <h3 class="text-sm font-bold mb-4">⚠️ Low Stock Alerts</h3>
+        <div class="space-y-3">
+         <div class="flex items-center justify-between p-3 rounded-lg u-style-31">
+          <div class="flex items-center gap-2">
+           <span>🌾</span><span class="text-sm font-medium">Wheat</span>
+          </div><span class="text-xs font-bold u-style-32">120 kg left</span>
+         </div>
+         <div class="flex items-center justify-between p-3 rounded-lg u-style-33">
+          <div class="flex items-center gap-2">
+           <span>🍚</span><span class="text-sm font-medium">Sugar</span>
+          </div><span class="text-xs font-bold u-style-34">85 kg left</span>
+         </div>
+         <div class="flex items-center justify-between p-3 rounded-lg u-style-31">
+          <div class="flex items-center gap-2">
+           <span>🫘</span><span class="text-sm font-medium">Dal</span>
+          </div><span class="text-xs font-bold u-style-32">60 kg left</span>
+         </div>
+        </div>
+       </div>
+      </div><!-- Recent transactions -->
+      <div class="rounded-xl p-5 u-style-2">
+       <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-bold">Recent Transactions</h3><button id="view-distribution-button" class="text-xs font-semibold u-style-13">View All →</button>
+       </div>
+       <div class="table-wrap">
+        <table>
+         <thead>
+          <tr>
+           <th>Card No.</th>
+           <th>Beneficiary</th>
+           <th>Items</th>
+           <th>Qty (kg)</th>
+           <th>Date</th>
+           <th>Status</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>RC-40012</td>
+           <td>Ramesh Kumar</td>
+           <td>🍚 Rice, 🌾 Wheat</td>
+           <td>10</td>
+           <td>15 Dec 2024</td>
+           <td><span class="badge badge-green">Delivered</span></td>
+          </tr>
+          <tr>
+           <td>RC-40078</td>
+           <td>Sunita Devi</td>
+           <td>🍚 Rice, 🍬 Sugar</td>
+           <td>7</td>
+           <td>15 Dec 2024</td>
+           <td><span class="badge badge-green">Delivered</span></td>
+          </tr>
+          <tr>
+           <td>RC-40155</td>
+           <td>Arjun Singh</td>
+           <td>🌾 Wheat, 🫘 Dal</td>
+           <td>8</td>
+           <td>14 Dec 2024</td>
+           <td><span class="badge badge-yellow">Pending</span></td>
+          </tr>
+          <tr>
+           <td>RC-40203</td>
+           <td>Priya Sharma</td>
+           <td>🍚 Rice</td>
+           <td>5</td>
+           <td>14 Dec 2024</td>
+           <td><span class="badge badge-green">Delivered</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- CARD HOLDERS PAGE -->
+     <div id="page-cardholders" class="page fade-in u-style-7">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+       <div>
+        <h2 class="text-lg font-bold">Card Holders Registry</h2>
+        <p class="text-xs opacity-50">Manage ration card beneficiaries</p>
+       </div><button id="add-cardholder-button" class="btn-primary flex items-center gap-2"> <i data-lucide="plus" class="u-style-35"></i> Add Card Holder </button>
+      </div><!-- Add form (hidden by default) -->
+      <div id="add-cardholder-form" class="rounded-xl p-5 mb-6 u-style-36">
+       <h3 class="text-sm font-bold mb-4">Register New Card Holder</h3>
+       <form id="cardholder-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+         <label for="ch-name" class="block text-xs font-medium mb-1">Full Name</label><input id="ch-name" class="input-field" placeholder="Enter full name" required>
+        </div>
+        <div>
+         <label for="ch-card" class="block text-xs font-medium mb-1">Ration Card No.</label><input id="ch-card" class="input-field" placeholder="RC-XXXXX" required>
+        </div>
+        <div>
+         <label for="ch-aadhar" class="block text-xs font-medium mb-1">Aadhaar (Last 4)</label><input id="ch-aadhar" class="input-field" placeholder="XXXX" maxlength="4">
+        </div>
+        <div>
+         <label for="ch-category" class="block text-xs font-medium mb-1">Card Type</label> <select id="ch-category" class="input-field"><option>APL</option><option>BPL</option><option>AAY</option><option>PHH</option></select>
+        </div>
+        <div>
+         <label for="ch-members" class="block text-xs font-medium mb-1">Family Members</label><input id="ch-members" type="number" class="input-field" placeholder="0" min="1" max="20">
+        </div>
+        <div>
+         <label for="ch-address" class="block text-xs font-medium mb-1">Address</label><input id="ch-address" class="input-field" placeholder="Village/Ward">
+        </div>
+        <div class="sm:col-span-2 lg:col-span-3 flex gap-3 mt-2"><button type="submit" class="btn-primary">Register Card Holder</button> <button type="button" id="cancel-cardholder-button" class="btn-outline">Cancel</button>
+        </div>
+       </form>
+      </div><!-- Search bar -->
+      <div class="flex gap-3 mb-4"><input class="input-field max-w-xs" placeholder="Search by name or card no..." id="ch-search"> <select class="input-field u-style-37" id="ch-filter"> <option value="">All Types</option><option>APL</option><option>BPL</option><option>AAY</option><option>PHH</option> </select>
+      </div>
+      <div class="rounded-xl u-style-2">
+       <div class="table-wrap" id="cardholders-table">
+        <table>
+         <thead>
+          <tr>
+           <th>Card No.</th>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Members</th>
+           <th>Address</th>
+           <th>Status</th>
+          </tr>
+         </thead>
+         <tbody id="cardholders-tbody"></tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- STOCK MANAGEMENT PAGE -->
+     <div id="page-stock" class="page fade-in u-style-7">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+       <div>
+        <h2 class="text-lg font-bold">Stock Management</h2>
+        <p class="text-xs opacity-50">Track and manage warehouse inventory</p>
+       </div><button id="add-stock-button" class="btn-primary flex items-center gap-2"> <i data-lucide="plus" class="u-style-35"></i> Add Stock Entry </button>
+      </div>
+      <div id="add-stock-form" class="rounded-xl p-5 mb-6 u-style-36">
+       <h3 class="text-sm font-bold mb-4">New Stock Entry</h3>
+       <form id="stock-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+         <label for="st-item" class="block text-xs font-medium mb-1">Item</label> <select id="st-item" class="input-field"><option>Rice</option><option>Wheat</option><option>Sugar</option><option>Dal</option><option>Kerosene</option></select>
+        </div>
+        <div>
+         <label for="st-qty" class="block text-xs font-medium mb-1">Quantity (kg/L)</label><input id="st-qty" type="number" class="input-field" placeholder="0" required>
+        </div>
+        <div>
+         <label for="st-source" class="block text-xs font-medium mb-1">Source</label><input id="st-source" class="input-field" placeholder="FCI / State Depot">
+        </div>
+        <div>
+         <label for="st-date" class="block text-xs font-medium mb-1">Received Date</label><input id="st-date" type="date" class="input-field">
+        </div>
+        <div class="sm:col-span-2 lg:col-span-4 flex gap-3 mt-2"><button type="submit" class="btn-primary">Add Stock</button> <button type="button" id="cancel-stock-button" class="btn-outline">Cancel</button>
+        </div>
+       </form>
+      </div><!-- Stock overview cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6" id="stock-cards"></div>
+      <div class="rounded-xl u-style-2">
+       <div class="p-4 flex items-center justify-between">
+        <h3 class="text-sm font-bold">Stock Movement Log</h3>
+       </div>
+       <div class="table-wrap">
+        <table>
+         <thead>
+          <tr>
+           <th>Date</th>
+           <th>Item</th>
+           <th>Type</th>
+           <th>Qty</th>
+           <th>Source/Dest</th>
+           <th>Balance</th>
+          </tr>
+         </thead>
+         <tbody id="stock-log-tbody"></tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- DISTRIBUTION PAGE -->
+     <div id="page-distribution" class="page fade-in u-style-7">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+       <div>
+        <h2 class="text-lg font-bold">Ration Distribution</h2>
+        <p class="text-xs opacity-50">Record and manage distribution to beneficiaries</p>
+       </div><button id="new-distribution-button" class="btn-primary flex items-center gap-2"> <i data-lucide="plus" class="u-style-35"></i> New Distribution </button>
+      </div>
+      <div id="dist-form" class="rounded-xl p-5 mb-6 u-style-36">
+       <h3 class="text-sm font-bold mb-4">Record Distribution</h3>
+       <form id="distribution-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+         <label for="d-card" class="block text-xs font-medium mb-1">Ration Card No.</label><input id="d-card" class="input-field" placeholder="RC-XXXXX" required>
+        </div>
+        <div>
+         <label for="d-name" class="block text-xs font-medium mb-1">Beneficiary Name</label><input id="d-name" class="input-field" placeholder="Auto-fill on card no." required>
+        </div>
+        <div>
+         <label for="d-item" class="block text-xs font-medium mb-1">Item</label> <select id="d-item" class="input-field"><option>Rice</option><option>Wheat</option><option>Sugar</option><option>Dal</option><option>Kerosene</option></select>
+        </div>
+        <div>
+         <label for="d-qty" class="block text-xs font-medium mb-1">Quantity (kg/L)</label><input id="d-qty" type="number" class="input-field" placeholder="0" required>
+        </div>
+        <div>
+         <label for="d-date" class="block text-xs font-medium mb-1">Distribution Date</label><input id="d-date" type="date" class="input-field">
+        </div>
+        <div>
+         <label for="d-status" class="block text-xs font-medium mb-1">Status</label> <select id="d-status" class="input-field"><option>Delivered</option><option>Pending</option><option>Cancelled</option></select>
+        </div>
+        <div class="sm:col-span-2 lg:col-span-3 flex gap-3 mt-2"><button type="submit" class="btn-primary">Record Distribution</button> <button type="button" id="cancel-distribution-button" class="btn-outline">Cancel</button>
+        </div>
+       </form>
+      </div>
+      <div class="rounded-xl u-style-2">
+       <div class="table-wrap">
+        <table>
+         <thead>
+          <tr>
+           <th>ID</th>
+           <th>Card No.</th>
+           <th>Beneficiary</th>
+           <th>Item</th>
+           <th>Qty</th>
+           <th>Date</th>
+           <th>Status</th>
+          </tr>
+         </thead>
+         <tbody id="dist-tbody"></tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- REPORTS PAGE -->
+     <div id="page-reports" class="page fade-in u-style-7">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+       <div>
+        <h2 class="text-lg font-bold">Reports &amp; Analytics</h2>
+        <p class="text-xs opacity-50">Insights and data-driven analysis</p>
+       </div><button id="export-report-button" class="btn-secondary flex items-center gap-2"> <i data-lucide="download" class="u-style-35"></i> Export PDF </button>
+      </div><!-- KPI row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+       <div class="rounded-xl p-4 u-style-2">
+        <p class="text-xs opacity-50">Coverage Rate</p>
+        <p class="text-xl font-bold mt-1 u-style-13">87.3%</p>
+        <div class="w-full h-1.5 rounded-full mt-2 u-style-38">
+         <div class="h-full rounded-full u-style-39"></div>
+        </div>
+       </div>
+       <div class="rounded-xl p-4 u-style-2">
+        <p class="text-xs opacity-50">Avg. Per Family</p>
+        <p class="text-xl font-bold mt-1 u-style-40">12.4 kg</p>
+        <p class="text-xs mt-1 u-style-13">↑ 2.1% vs last month</p>
+       </div>
+       <div class="rounded-xl p-4 u-style-2">
+        <p class="text-xs opacity-50">Total Distributed</p>
+        <p class="text-xl font-bold mt-1">42,680 kg</p>
+        <p class="text-xs mt-1 opacity-50">This quarter</p>
+       </div>
+       <div class="rounded-xl p-4 u-style-2">
+        <p class="text-xs opacity-50">Pending Cases</p>
+        <p class="text-xl font-bold mt-1 u-style-41">28</p>
+        <p class="text-xs mt-1 u-style-41">Needs attention</p>
+       </div>
+      </div><!-- Category breakdown + Distribution by type -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+       <div class="rounded-xl p-5 u-style-2">
+        <h3 class="text-sm font-bold mb-4">Distribution by Commodity</h3>
+        <div class="space-y-3">
+         <div>
+          <div class="flex justify-between text-xs mb-1">
+           <span>🍚 Rice</span><span class="font-bold">18,200 kg</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full u-style-38">
+           <div class="h-full rounded-full u-style-42"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between text-xs mb-1">
+           <span>🌾 Wheat</span><span class="font-bold">12,400 kg</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full u-style-38">
+           <div class="h-full rounded-full u-style-43"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between text-xs mb-1">
+           <span>🍬 Sugar</span><span class="font-bold">6,800 kg</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full u-style-38">
+           <div class="h-full rounded-full u-style-44"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between text-xs mb-1">
+           <span>🫘 Dal</span><span class="font-bold">3,280 kg</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full u-style-38">
+           <div class="h-full rounded-full u-style-45"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between text-xs mb-1">
+           <span>🛢️ Kerosene</span><span class="font-bold">2,000 L</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full u-style-38">
+           <div class="h-full rounded-full u-style-46"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="rounded-xl p-5 u-style-2">
+        <h3 class="text-sm font-bold mb-4">Card Category Breakdown</h3>
+        <div class="grid grid-cols-2 gap-3">
+         <div class="p-4 rounded-lg text-center u-style-17">
+          <p class="text-2xl font-bold u-style-47">6,240</p>
+          <p class="text-xs font-medium mt-1 u-style-47">APL Cards</p>
+         </div>
+         <div class="p-4 rounded-lg text-center u-style-19">
+          <p class="text-2xl font-bold u-style-48">4,180</p>
+          <p class="text-xs font-medium mt-1 u-style-48">BPL Cards</p>
+         </div>
+         <div class="p-4 rounded-lg text-center u-style-21">
+          <p class="text-2xl font-bold u-style-34">2,890</p>
+          <p class="text-xs font-medium mt-1 u-style-34">AAY Cards</p>
+         </div>
+         <div class="p-4 rounded-lg text-center u-style-49">
+          <p class="text-2xl font-bold u-style-50">1,272</p>
+          <p class="text-xs font-medium mt-1 u-style-50">PHH Cards</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Monthly trend chart -->
+      <div class="rounded-xl p-5 u-style-2">
+       <h3 class="text-sm font-bold mb-4">Quarterly Distribution Trend</h3>
+       <div class="flex items-end gap-2 h-36">
+        <div class="flex-1 flex flex-col items-center gap-1">
+         <div class="w-full chart-bar u-style-51"></div><span class="text-xs opacity-50">Q1</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-1">
+         <div class="w-full chart-bar u-style-52"></div><span class="text-xs opacity-50">Q2</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-1">
+         <div class="w-full chart-bar u-style-53"></div><span class="text-xs opacity-50">Q3</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-1">
+         <div class="w-full chart-bar u-style-54"></div><span class="text-xs opacity-50">Q4</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main><!-- FOOTER -->
+    <footer class="px-4 md:px-6 py-2 text-center flex-shrink-0 u-style-55">
+     <p id="footer-text" class="text-xs opacity-40">© 2024 PDS Ration Distribution Tracking System · Government of India</p>
+    </footer>
+   </div>
+  </div><!-- TOAST -->
+  <div id="toast" class="toast u-style-9"></div></body>
+</html>
+
+
